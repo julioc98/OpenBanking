@@ -47,10 +47,10 @@ func main() {
 
 	r.HandleFunc("/auth", authHandler.Auth).Methods("GET")
 	r.HandleFunc("/webhook", authHandler.Callback).Methods("GET")
-	// r.HandleFunc("/{id:[0-9]+}", authHandler.Callback).Methods("GET")
+	r.HandleFunc("/{id:[0-9]+}", authHandler.Callback).Methods("GET")
 
-	// r.HandleFunc("/", handlerHi)
-	// http.Handle("/", r)
+	r.HandleFunc("/", handlerHi)
+	http.Handle("/", r)
 
 	port := env.Get("PORT", "5001")
 	log.Printf(`%s listening on port: %s `, env.Get("APP", "openbankinghacka"), port)

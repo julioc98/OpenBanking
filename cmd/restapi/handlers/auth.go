@@ -54,7 +54,7 @@ func (ah *AuthHandler) Callback(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	// w.Write([]byte(fmt.Sprintf(`{ "accessToken": "%s" }`, accessToken)))
 	w.Write([]byte(`
-		<div style="display:flex; align-items: center;flex-direction: column;margin-top: 10%; font-weight: bold;">
+		<div style="display:flex; align-items: center;flex-direction: column;margin-top: 10%; font-weight: bold;font-size:35px;">
 		<div>Você foi logado com sucesso!</div>
 		<div>Retorne para a aplicação.</div>
 		</div>`))

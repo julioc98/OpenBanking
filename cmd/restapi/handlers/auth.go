@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/julioc98/openbanking/pkg/interfaces"
@@ -36,8 +37,18 @@ func (ah *AuthHandler) Auth(w http.ResponseWriter, r *http.Request) {
 // Callback Auth
 func (ah *AuthHandler) Callback(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query().Get("code")
+	log.Println("[DEBUG] Query Code:", code)
+
+	code = r.URL.EscapedPath()
+	log.Println("[DEBUG] URL Code:", code)
+
+	if code == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 	accessToken, err := ah.authService.CallbackAuth(code)
 	if err != nil {
+		log.Println("[ERROR] message:", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

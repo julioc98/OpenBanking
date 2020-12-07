@@ -165,8 +165,8 @@ func TestObiebank_GetTokenByCode(t *testing.T) {
 				redirectURI: "https://openbankinghacka.herokuapp.com/callback",
 			},
 			args: args{
-				user: "PSDBR-NCA-AISP77",
-				pass: "senha123",
+				user: "PSDBR-NCA-AISP01",
+				pass: "senha12",
 				code: "138efc91-15cf-479a-af81-4720cb7f4b6f.i2qmM6i8CP8.67456a91-3f76-4170-b5f2-b08dce488abe",
 			},
 			want:    &entities.Token{},

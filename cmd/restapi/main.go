@@ -19,7 +19,15 @@ func handlerHi(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	r := mux.NewRouter()
+	r := mux.NewRouter().StrictSlash(true)
+
+	// Choose the folder to serve
+	staticDir := "/static/"
+
+	// Create the route
+	r.PathPrefix(staticDir).
+		Handler(http.StripPrefix(staticDir, http.FileServer(http.Dir("."+staticDir))))
+
 	r.Use(middleware.Logging)
 
 	authURL := env.Get("AUTH_URL", "https://auth.obiebank.banfico.com")
@@ -41,8 +49,8 @@ func main() {
 	r.HandleFunc("/callback", authHandler.Callback).Methods("GET")
 	// r.HandleFunc("/{id:[0-9]+}", authHandler.Callback).Methods("GET")
 
-	r.HandleFunc("/", handlerHi)
-	http.Handle("/", r)
+	// r.HandleFunc("/", handlerHi)
+	// http.Handle("/", r)
 
 	port := env.Get("PORT", "5001")
 	log.Printf(`%s listening on port: %s `, env.Get("APP", "openbankinghacka"), port)

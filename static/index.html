@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+document.write(window.location.hash);
+
+window.location.href = "http://localhost:5001/callback"+window.location.hash.replace("#", "?");
+</script>
+
+</body>
+</html>

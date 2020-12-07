@@ -19,14 +19,14 @@ func handlerHi(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	r := mux.NewRouter().StrictSlash(true)
+	r := mux.NewRouter()
 
 	// Choose the folder to serve
 	staticDir := "/static/"
 
 	// Create the route
-	r.PathPrefix(staticDir).
-		Handler(http.StripPrefix(staticDir, http.FileServer(http.Dir("."+staticDir))))
+	r.PathPrefix("/callback").
+		Handler(http.StripPrefix("/callback", http.FileServer(http.Dir("."+staticDir))))
 
 	r.Use(middleware.Logging)
 
@@ -46,7 +46,7 @@ func main() {
 	authHandler := handlers.NewAuthHandler(authService)
 
 	r.HandleFunc("/auth", authHandler.Auth).Methods("GET")
-	r.HandleFunc("/callback", authHandler.Callback).Methods("GET")
+	r.HandleFunc("/webhook", authHandler.Callback).Methods("GET")
 	// r.HandleFunc("/{id:[0-9]+}", authHandler.Callback).Methods("GET")
 
 	// r.HandleFunc("/", handlerHi)

@@ -3,9 +3,13 @@
 <body>
 
 <script>
-document.write(window.location.hash);
+var url =  window.location.protocol+'//'+window.location.host+'/webhook'+window.location.hash.replace("#", "?");    
+document.write(url);
+window.location.href = url;
+// setTimeout(function() {
+//     window.location.href = url;
+// }, 10);
 
-window.location.href = "http://localhost:5001/callback"+window.location.hash.replace("#", "?");
 </script>
 
 </body>

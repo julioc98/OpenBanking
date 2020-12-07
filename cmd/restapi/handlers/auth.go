@@ -38,10 +38,6 @@ func (ah *AuthHandler) Auth(w http.ResponseWriter, r *http.Request) {
 func (ah *AuthHandler) Callback(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query().Get("code")
 	log.Println("[DEBUG] Query Code:", code)
-
-	code = r.URL.EscapedPath()
-	log.Println("[DEBUG] URL Code:", code)
-
 	if code == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		return
